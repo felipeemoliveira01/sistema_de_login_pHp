@@ -1,5 +1,6 @@
 <?php
 include('link.php'); // Inclui a conexão com o banco de dados
+include('options.php');
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Esse e-mail já está registrado. Por favor, use um e-mail diferente.";
         } else {
             // Criptografa a senha para segurança
-            $senha_hash = password_hash($senha, PASSWORD_ARGON2ID);
+            $senha_hash = password_hash($senha, PASSWORD_ARGON2ID, $options);
             
             // Insere o novo usuário no banco de dados
             $sql_insert = "INSERT INTO usua (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
